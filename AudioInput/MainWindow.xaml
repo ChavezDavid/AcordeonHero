@@ -18,18 +18,19 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Button x:Name="btnIniciar" Grid.RowSpan="12" Content="Iniciar" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Background="#FFD8BEBE" FontFamily="Calibri Light" FontSize="18" FontStretch="Condensed" FontWeight="Thin" Click="btnIniciar_Click" Canvas.Left="529" Canvas.Top="10" />
-        <Button x:Name="btnFinalizar" Grid.RowSpan="12" Content="Finalizar" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Background="#FFD8BEBE" FontFamily="Calibri Light" FontSize="18" FontStretch="Condensed" FontWeight="Thin" Click="btnFinalizar_Click" Canvas.Left="609" Canvas.Top="10" />
+        <Button x:Name="btnIniciar" Grid.RowSpan="12" Content="Iniciar" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Background="#FFD8BEBE" FontFamily="Calibri Light" FontSize="18" FontStretch="Condensed" FontWeight="Thin" Click="btnIniciar_Click" Canvas.Left="529" Canvas.Top="2" />
+        <Button x:Name="btnFinalizar" Grid.RowSpan="12" Content="Finalizar" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Background="#FFD8BEBE" FontFamily="Calibri Light" FontSize="18" FontStretch="Condensed" FontWeight="Thin" Click="btnFinalizar_Click" Canvas.Left="609" Canvas.Top="3" />
         <TextBlock x:Name="lblFrecuencia" Grid.RowSpan="12" Grid.Column="2" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment, Width" FontSize="38"/>
         <Image x:Name="imgBotonVerde" Height="50" Canvas.Top="270" Width="50" Source="graficos/Green.png"/>
-        <TextBlock x:Name="lblMIBoton" Canvas.Left="290" TextWrapping="Wrap" Text="0" Canvas.Top="10"/>
-        <TextBlock x:Name="lblMDBoton" Canvas.Left="290" TextWrapping="Wrap" Text="0" Canvas.Top="31"/>
-        <TextBlock x:Name="lblMITrack" Canvas.Left="355" TextWrapping="Wrap" Text="0" Canvas.Top="10"/>
-        <TextBlock x:Name="lblMDTrack" Canvas.Left="355" TextWrapping="Wrap" Text="0" Canvas.Top="31"/>
-        <TextBlock x:Name="lblPoder" Canvas.Left="210" TextWrapping="Wrap" Text="Desactivado" Canvas.Top="22"/>
-        <TextBlock x:Name="lblPuntaje" Canvas.Left="421" TextWrapping="Wrap" Text="0" Canvas.Top="22"/>
-        <Rectangle Fill="#FF5094B4" Height="269" Canvas.Left="629" Canvas.Top="51" Width="11"/>
-        <Button x:Name="btnExaminar" Content="Examinar" Canvas.Left="529" Canvas.Top="51" Width="75" Click="btnExaminar_Click"/>
-        <TextBox x:Name="txtRuta" Height="23" Canvas.Left="210" TextWrapping="Wrap" Canvas.Top="57" Width="314"/>
+        <TextBlock x:Name="lblMIBoton" Canvas.Left="290" TextWrapping="Wrap" Text="0" Canvas.Top="2"/>
+        <TextBlock x:Name="lblMDBoton" Canvas.Left="290" TextWrapping="Wrap" Text="0" Canvas.Top="18"/>
+        <TextBlock x:Name="lblMITrack" Canvas.Left="355" TextWrapping="Wrap" Text="0" Canvas.Top="2"/>
+        <TextBlock x:Name="lblMDTrack" Canvas.Left="355" TextWrapping="Wrap" Text="0" Canvas.Top="18"/>
+        <TextBlock x:Name="lblPoder" Canvas.Left="210" TextWrapping="Wrap" Text="Desactivado" Canvas.Top="10"/>
+        <TextBlock x:Name="lblPuntaje" Canvas.Left="445" TextWrapping="Wrap" Text="0" Canvas.Top="3"/>
+        <Button x:Name="btnExaminar" Content="Examinar" Canvas.Left="609" Canvas.Top="35" Width="75" Click="btnExaminar_Click"/>
+        <TextBox x:Name="txtRuta" Height="23" Canvas.Left="290" TextWrapping="Wrap" Canvas.Top="34" Width="314"/>
+        <Image x:Name="imgCaguama" Height="100" Canvas.Left="68" Canvas.Top="3" Width="100" Visibility="Visible"/>
+        <TextBlock x:Name="lblTiempo" Canvas.Left="210" TextWrapping="Wrap" Text="0" Canvas.Top="38"/>
     </Canvas>
 </Window>

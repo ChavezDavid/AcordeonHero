@@ -18,6 +18,8 @@ using NAudio.Dsp;
 
 using Microsoft.Win32;
 
+using System.Windows.Threading;
+
 namespace AudioInput
 {
     /// <summary>
@@ -45,9 +47,15 @@ namespace AudioInput
         double pasoNota = Math.Pow(2, 1.0 / 12.0);
         double frecuenciaLaBase = 110.0;
 
+        DispatcherTimer timer;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Tick += OnTimerTick;
 
             waveOut = new WaveOutEvent();
 
@@ -64,8 +72,23 @@ namespace AudioInput
             lblMDTrack.Text = Convert.ToString(canvasRight);
         }
 
+        private void OnTimerTick(object sender, EventArgs e)
+        {
+            if (reader != null)
+            {
+                string tiempoActual = reader.CurrentTime.ToString();
+                tiempoActual = tiempoActual.Substring(0, 8);
+                lblTiempo.Text = tiempoActual.Substring(0, 8);
+
+                moverBoton();
+                
+            }
+        }
+
         private void btnIniciar_Click(object sender, RoutedEventArgs e)
         {
+
+            timer.Start();
 
             if (waveOut != null)
             {
@@ -145,8 +168,8 @@ namespace AudioInput
 
                 lblFrecuencia.Text = frecFundamental.ToString("n2");
 
-                agregarBoton();
-                moverBoton();
+                //agregarBoton();
+                //moverBoton();
                 detectarFrecuencia(frecFundamental);
 
                 int octava = 0;
@@ -238,7 +261,7 @@ namespace AudioInput
             {
                 boton = 6;
             }
-            if (frecFundamental > 12000 && frecFundamental < 13000)
+            if (frecFundamental > 1000 && frecFundamental < 1200)
             {
                 boton = 7;
             }
@@ -252,34 +275,39 @@ namespace AudioInput
 
             if (boton == 1)
             {
-                if (mIBoton <= 634 && mDBoton >= 588)
-                {
-                    acierto = true;
-                }
-            }
-            if (boton == 2 && mIBoton <= 634 && mDBoton >= 588)
-            {
+                imgBotonVerde.Source = new BitmapImage(new Uri(@"graficos/Green.png", UriKind.RelativeOrAbsolute));
                 acierto = true;
             }
-            if (boton == 3 && mIBoton <= 634 && mDBoton >= 588)
+            if (boton == 2)
             {
+                imgBotonVerde.Source = new BitmapImage(new Uri(@"graficos/Red.png", UriKind.RelativeOrAbsolute));
                 acierto = true;
             }
-            if (boton == 4 && mIBoton <= 634 && mDBoton >= 588)
+            if (boton == 3)
             {
+                imgBotonVerde.Source = new BitmapImage(new Uri(@"graficos/Yellow.png", UriKind.RelativeOrAbsolute));
                 acierto = true;
             }
-            if (boton == 5 && mIBoton <= 634 && mDBoton >= 588)
+            if (boton == 4)
             {
+                imgBotonVerde.Source = new BitmapImage(new Uri(@"graficos/Blue.png", UriKind.RelativeOrAbsolute));
                 acierto = true;
             }
-            if (boton == 6 && mIBoton <= 634 && mDBoton >= 588)
+            if (boton == 5)
             {
+                imgBotonVerde.Source = new BitmapImage(new Uri(@"graficos/Orange.png", UriKind.RelativeOrAbsolute));
+                acierto = true;
+            }
+            if (boton == 6)
+            {
+                imgBotonVerde.Source = new BitmapImage(new Uri(@"graficos/Pink.png", UriKind.RelativeOrAbsolute));
                 acierto = true;
             }
             if (boton == 7)
             {
+                imgBotonVerde.Source = new BitmapImage(new Uri(@"graficos/NotaEspecial.png", UriKind.RelativeOrAbsolute));
                 poder = true;
+                
             }
 
             if (acierto)
@@ -300,11 +328,14 @@ namespace AudioInput
         void activarPoder()
         {
             lblPoder.Text = "Activado";
+            imgCaguama.Source = new BitmapImage(new Uri(@"graficos/Caguama.png", UriKind.RelativeOrAbsolute));
             if (cronometro <= 0)
             {
                 lblPoder.Text = "Desactivado";
                 cronometro = 100;
                 poder = false;
+                puntosPoder = 0;
+                imgCaguama.Source = new BitmapImage(new Uri(@"graficos/Charrones.png", UriKind.RelativeOrAbsolute));
             }
             cronometro -= 1;
         }
@@ -319,6 +350,7 @@ namespace AudioInput
 
         private void btnFinalizar_Click(object sender, RoutedEventArgs e)
         {
+            waveOut.Stop();
             wavein.StopRecording();
         }
 
