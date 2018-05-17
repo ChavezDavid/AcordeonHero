@@ -73,6 +73,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Nota.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -118,7 +119,9 @@
     <Resource Include="graficos\Yellow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="graficos\Tragos.wav" />
+    <Content Include="graficos\Tragos.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

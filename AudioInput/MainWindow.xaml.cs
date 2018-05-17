@@ -33,11 +33,17 @@ namespace AudioInput
         WaveOutEvent waveOut;
         AudioFileReader reader;
 
+        Nota[] notaMorada = new Nota[9];
+        int contadorNotaMorada = 0;
+
+        Image[] morado = new Image[9];
+        int contadorMorado = 0;
+
         bool poder = false;
 
         int puntaje = 0;
         int puntosPoder = 0;
-        int cronometro = 78000;
+        int cronometro = 100;
 
         double mDBoton;
         double mIBoton;
@@ -56,6 +62,11 @@ namespace AudioInput
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += OnTimerTick;
+
+            notaMorada[contadorNotaMorada] = new Nota();
+
+            notaMorada[contadorNotaMorada].setMomento(210);
+            notaMorada[contadorNotaMorada].setBoton(1);
 
             waveOut = new WaveOutEvent();
 
@@ -80,6 +91,7 @@ namespace AudioInput
                 tiempoActual = tiempoActual.Substring(0, 8);
                 lblTiempo.Text = tiempoActual.Substring(0, 8);
 
+                
                 moverBoton();
                 
             }
@@ -90,12 +102,15 @@ namespace AudioInput
 
             timer.Start();
 
+            aparecerNotaMorado(notaMorada[contadorNotaMorada]);
+
             if (waveOut != null)
             {
                 if (waveOut.PlaybackState == PlaybackState.Playing)
                 {
                     waveOut.Stop();
                 }
+                reader = new AudioFileReader("graficos\\Tragos.wav");
                 waveOut.Init(reader);
                 waveOut.Play();
             }
@@ -226,8 +241,8 @@ namespace AudioInput
             mDBoton = Canvas.GetRight(imgBotonVerde);
             lblMDBoton.Text = Convert.ToString(mDBoton);
 
-            mIBoton += 50;
-            mDBoton += 50;
+            mIBoton += 23.4;
+            mDBoton += 23.4;
             Canvas.SetLeft(imgBotonVerde, mIBoton);
             Canvas.SetRight(imgBotonVerde, mDBoton);
 
@@ -340,6 +355,21 @@ namespace AudioInput
             cronometro -= 1;
         }
 
+        void aparecerNotaMorado(Nota nota)
+        {
+            morado[contadorMorado] = new Image();
+            morado[contadorMorado].Source = new BitmapImage(new Uri(@"graficos/Purple.png", UriKind.RelativeOrAbsolute));
+            morado[contadorMorado].Width = 50;
+            morado[contadorMorado].Height = 50;
+            Canvas.SetLeft(morado[contadorMorado], 0);
+            Canvas.SetRight(morado[contadorMorado], 50);
+
+            if (notaMorada[contadorNotaMorada].getBoton() == 1)
+            {
+                gridPrincipal.Children.Add(morado[contadorMorado]);
+            }
+        }
+
         void agregarBoton()
         {
             Image verde = new Image();
@@ -352,16 +382,6 @@ namespace AudioInput
         {
             waveOut.Stop();
             wavein.StopRecording();
-        }
-
-        private void btnExaminar_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            if ((bool)fileDialog.ShowDialog())
-            {
-                txtRuta.Text = fileDialog.FileName;
-                reader = new AudioFileReader(fileDialog.FileName);
-            }
         }
     }
 }
