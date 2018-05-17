@@ -29,5 +29,7 @@
         <TextBlock x:Name="lblPoder" Canvas.Left="210" TextWrapping="Wrap" Text="Desactivado" Canvas.Top="22"/>
         <TextBlock x:Name="lblPuntaje" Canvas.Left="421" TextWrapping="Wrap" Text="0" Canvas.Top="22"/>
         <Rectangle Fill="#FF5094B4" Height="269" Canvas.Left="629" Canvas.Top="51" Width="11"/>
+        <Button x:Name="btnExaminar" Content="Examinar" Canvas.Left="529" Canvas.Top="51" Width="75" Click="btnExaminar_Click"/>
+        <TextBox x:Name="txtRuta" Height="23" Canvas.Left="210" TextWrapping="Wrap" Canvas.Top="57" Width="314"/>
     </Canvas>
 </Window>

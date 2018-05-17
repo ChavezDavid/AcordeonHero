@@ -16,6 +16,7 @@ using NAudio;
 using NAudio.Wave;
 using NAudio.Dsp;
 
+using Microsoft.Win32;
 
 namespace AudioInput
 {
@@ -27,6 +28,8 @@ namespace AudioInput
 
         WaveIn wavein;
         WaveFormat formato;
+        WaveOutEvent waveOut;
+        AudioFileReader reader;
 
         bool poder = false;
 
@@ -41,10 +44,12 @@ namespace AudioInput
 
         double pasoNota = Math.Pow(2, 1.0 / 12.0);
         double frecuenciaLaBase = 110.0;
-        
+
         public MainWindow()
         {
             InitializeComponent();
+
+            waveOut = new WaveOutEvent();
 
             Canvas.SetLeft(imgTrack, 80);
             Canvas.SetRight(imgTrack, 90);
@@ -61,6 +66,17 @@ namespace AudioInput
 
         private void btnIniciar_Click(object sender, RoutedEventArgs e)
         {
+
+            if (waveOut != null)
+            {
+                if (waveOut.PlaybackState == PlaybackState.Playing)
+                {
+                    waveOut.Stop();
+                }
+                waveOut.Init(reader);
+                waveOut.Play();
+            }
+
             wavein = new WaveIn();
             wavein.WaveFormat = new WaveFormat(44100, 16, 1);
             formato = wavein.WaveFormat;
@@ -129,6 +145,7 @@ namespace AudioInput
 
                 lblFrecuencia.Text = frecFundamental.ToString("n2");
 
+                agregarBoton();
                 moverBoton();
                 detectarFrecuencia(frecFundamental);
 
@@ -190,6 +207,7 @@ namespace AudioInput
             mDBoton += 50;
             Canvas.SetLeft(imgBotonVerde, mIBoton);
             Canvas.SetRight(imgBotonVerde, mDBoton);
+
         }
 
         void detectarFrecuencia(float frecFundamental)
@@ -291,9 +309,27 @@ namespace AudioInput
             cronometro -= 1;
         }
 
+        void agregarBoton()
+        {
+            Image verde = new Image();
+            verde.Source = new BitmapImage(new Uri(@"graficos/Green.png", UriKind.RelativeOrAbsolute));
+            Canvas.SetLeft(verde, 200);
+            gridPrincipal.Children.Add(verde);
+        }
+
         private void btnFinalizar_Click(object sender, RoutedEventArgs e)
         {
             wavein.StopRecording();
+        }
+
+        private void btnExaminar_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            if ((bool)fileDialog.ShowDialog())
+            {
+                txtRuta.Text = fileDialog.FileName;
+                reader = new AudioFileReader(fileDialog.FileName);
+            }
         }
     }
 }
